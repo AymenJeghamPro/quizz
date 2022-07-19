@@ -3,11 +3,7 @@ import java.util.*
 
 fun main(args: Array<String>) {
 
-
-    val n = solve(0,0,0)
-
-
-    println(n)
+    println(maxProfit())
 }
 
 fun findSumPair(numbers: Array<Int>, k: Int): Array<Int> {
@@ -404,3 +400,48 @@ fun solve(weight0: Int, weight1: Int, weight2: Int): Int {
 
 }
 
+
+fun maxProfit(): MutableList<String> {
+    val stcks = mutableListOf<String>("one","two","three","four","five","six")
+    val even: IntArray = intArrayOf(2, 4, 6,8,10,12)
+    val odd: IntArray = intArrayOf(1, 3, 5,7,9,11)
+    val nos: IntArray = intArrayOf(11, 13, 15,17,19,21)
+
+    val lala = mutableListOf(even,odd,nos)
+
+    var resultList = mutableListOf<String>()
+
+    val result = (0 until stcks.size).map { col ->
+        lala.map { it[col] }.average()
+    }
+
+    print3largest(result).map {
+        resultList.add(stcks[it])
+    }
+
+    return resultList
+}
+
+fun print3largest(arr: List<Double>): MutableList<Int> {
+    var first: Double
+    var second: Double
+    var third: Double
+
+    second = Double.MIN_VALUE
+    first = second
+    third = first
+    var i: Int = 0
+    while (i < arr.size) {
+
+     if (arr[i] > first) {
+            third = second
+            second = first
+            first = arr[i]
+        } else if (arr[i] > second) {
+            third = second
+            second = arr[i]
+        } else if (arr[i] > third) third = arr[i]
+        i++
+    }
+    return mutableListOf(arr.indexOf(first),arr.indexOf(second),arr.indexOf(third))
+}
